@@ -73,11 +73,6 @@ pip wheel -r requirements.txt -w ./wheelhouse/
 pip install --use-wheel --no-index --find-links=./wheelhouse/ -r requirements.txt
 ```
 
-## start locust
-```bash
-locust -f src/login.py --host=http://218.17.21.156:61992
-```
-
 ## 参考资料
 
 * [Python 程序的发布流程](http://www.nosa.me/2015/07/11/python-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8F%91%E5%B8%83%E6%B5%81%E7%A8%8B/)
