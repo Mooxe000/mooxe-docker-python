@@ -23,29 +23,42 @@ RUN \
   pip install --upgrade pip && \
   # update all packages
   pip freeze --local | grep -v '^\-e' | cut -d = -f 1 \
-  | xargs -n1 pip install -U && \
-  pip install pip-tools virtualenv && \
+  | xargs -n1 pip install -U
+
+RUN \
+  pip install virtualenv && \
   # pyenv
   git clone git://github.com/yyuu/pyenv.git .pyenv && \
+  git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv && \
   # pip install --egg pyenv && \
   # pyenv - bash
-  echo "\
-export PATH=\"\$HOME/.pyenv/bin:\$PATH\"
-eval \"\$(pyenv init -)\"
-eval \"\$(pyenv virtualenv-init -)\"
-  " >> ~/.bash_profile && \
+  echo "export PATH=\"\$HOME/.pyenv/bin:\$PATH\"" >> ~/.bash_profile && \
+  echo "eval \"\$(pyenv init -)\"" >> ~/.bash_profile && \
+  echo "eval \"\$(pyenv virtualenv-init -)\"" >> ~/.bash_profile && \
   # pyenv - zsh
-  echo "\
-export PATH=\"\$HOME/.pyenv/bin:\$PATH\"
-eval \"\$(pyenv init -)\"
-eval \"\$(pyenv virtualenv-init -)\"
-  " >> ~/.zshrc && \
+  echo "export PATH=\"\$HOME/.pyenv/bin:\$PATH\"" >> ~/.zshrc && \
+  echo "eval \"\$(pyenv init -)\"" >> ~/.zshrc && \
+  echo "eval \"\$(pyenv virtualenv-init -)\"" >> ~/.zshrc && \
   # pyenv - fish
-  echo "\
-set PATH \$HOME/.pyenv/bin \$PATH
-pyenv init - | .
-pyenv virtualenv-init - | .
-  " >> ~/.config/fish/config.fish && \
-  # pyenv install
+  echo "set PATH \$HOME/.pyenv/bin \$PATH" >> ~/.config/fish/config.fish && \
+  echo "pyenv init - | ." >> ~/.config/fish/config.fish && \
+  echo "pyenv virtualenv-init - | ." >> ~/.config/fish/config.fish
 
-  fish -lc 'pyenv install 2.7.10; pyenv install 3.4.3'
+RUN \
+  # pyenv install
+  fish -lc 'pyenv install 2.7.10; pyenv install 3.4.3' && \
+  fish -lc 'pyenv versions' && \
+  # 2.7.10
+  fish -lc 'pyenv local 2.7.10' && \
+  fish -lc 'pip install --upgrade pip' && \
+  fish -lc 'pip install pip-tools' && \
+  fish -lc 'pyenv virtualenv venv27' && \
+  # 3.4.3
+  fish -lc 'pyenv local 3.4.3' && \
+  fish -lc 'pip install --upgrade pip' && \
+  fish -lc 'pip install pip-tools' && \
+  fish -lc 'pyenv virtualenv venv34' && \
+  # use system
+  fish -lc 'pyenv virtualenvs' && \
+  fish -lc 'pyenv local system' && \
+  fish -lc 'pyenv versions'
