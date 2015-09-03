@@ -12,9 +12,6 @@ RUN \
   apt-get autoremove -y
 
 RUN \
-  # apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-  # libreadline-dev libsqlite3-dev wget curl llvm && \
-
   # python pip
   curl -L https://bootstrap.pypa.io/get-pip.py | python && \
 
@@ -51,6 +48,8 @@ RUN \
   echo "pyenv virtualenv-init - | ." >> ~/.config/fish/config.fish
 
 RUN \
+  apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+  libreadline-dev libsqlite3-dev wget curl llvm && \
   # pyenv install
   fish -lc 'pyenv install 2.7.10; pyenv install 3.4.3' && \
   fish -lc 'pyenv versions' && \
