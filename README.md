@@ -71,6 +71,7 @@ pip-compile requirements.in
 mkdir ./wheelhouse
 pip wheel -r requirements.txt -w ./wheelhouse/
 pip install --use-wheel --no-index --find-links=./wheelhouse/ -r requirements.txt
+pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 ```
 
 ## 参考资料
