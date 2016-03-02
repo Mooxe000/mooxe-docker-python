@@ -4,7 +4,7 @@ MAINTAINER FooTearth "footearth@gmail.com"
 
 WORKDIR /root
 
-ENV python2 2.7.10
+ENV python2 2.7.11
 ENV python3 3.6-dev
 
 # update
@@ -53,12 +53,12 @@ RUN aptitude install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
     # pyenv install
 RUN fish -lc 'pyenv install $python2; pyenv install $python3' && \
     fish -lc 'pyenv versions' && \
-    # 2.7.10
+    # 2.7.11
     fish -lc 'pyenv local $python2' && \
     fish -lc 'pip install --upgrade pip' && \
     fish -lc 'pip install pip-tools virtualenv' && \
     fish -lc 'pyenv virtualenv venv2' && \
-    # 3.4.3
+    # 3.6.0 - dev
     fish -lc 'pyenv local 3.6-dev' && \
     fish -lc 'pip install --upgrade pip' && \
     fish -lc 'pip install pip-tools virtualenv' && \
