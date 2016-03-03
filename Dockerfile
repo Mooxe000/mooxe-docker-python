@@ -35,15 +35,21 @@ RUN aptitude install -y libevent-dev python-all-dev mercurial && \
     pip install virtualenv
 
     # pyenv - bash
+    # source activate venv2/3
 RUN echo "export PATH=\"\$HOME/.pyenv/bin:\$PATH\"" >> ~/.bashrc && \
+    echo "export PYENV_VIRTUALENV_DISABLE_PROMPT=1" >> ~/.bashrc && \
     echo "eval \"\$(pyenv init -)\"" >> ~/.bashrc && \
     echo "eval \"\$(pyenv virtualenv-init -)\"" >> ~/.bashrc && \
     # pyenv - zsh
+    # source activate venv2/3
     echo "export PATH=\"\$HOME/.pyenv/bin:\$PATH\"" >> ~/.zshrc && \
+    echo "export PYENV_VIRTUALENV_DISABLE_PROMPT=1" >> ~/.zshrc && \
     echo "eval \"\$(pyenv init -)\"" >> ~/.zshrc && \
     echo "eval \"\$(pyenv virtualenv-init -)\"" >> ~/.zshrc && \
     # pyenv - fish
+    # pyenv activate venv2/3
     echo "set PATH \$HOME/.pyenv/bin \$PATH" >> ~/.config/fish/config.fish && \
+    echo "set PYENV_VIRTUALENV_DISABLE_PROMPTH 1" >> ~/.config/fish/config.fish && \
     echo "pyenv init - | ." >> ~/.config/fish/config.fish && \
     echo "pyenv virtualenv-init - | ." >> ~/.config/fish/config.fish
 
